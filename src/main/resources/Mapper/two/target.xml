@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dailyReport.Mapper.two.target">
+
+<!--    <resultMap id="overview" type="com.example.dailyReport.Bean.Attendance">
+        <id column="school_id" javaType="INTEGER"/>
+        <result column="student_grade" property="student_grade" jdbcType="VARCHAR"/>
+        <result column="student_class" property="student_class" jdbcType="VARCHAR"/>
+        <result column="student_status" property="student_status" jdbcType="VARCHAR"/>
+        <result column="student_type" property="student_type" jdbcType="VARCHAR"/>
+        <result column="time" property="date" jdbcType="DATE"/>
+    </resultMap>-->
+
+    <insert id="insert"  parameterType="com.example.dailyReport.Bean.Attendance" >
+        insert into attendance
+        {school_id,
+        student_grade,
+        student_class,
+        status,
+        student_type,
+        date}
+        values
+        {
+        #{school_id},#{
+        student_grade},#{
+        student_class},#{
+        status},#{
+        student_type},#{
+        date}
+        }
+    </insert>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dailyReport.Mapper.one.source">
+
+    <resultMap id="overview" type="com.example.dailyReport.Bean.Attendance">
+        <!--column 字段 property 必须一致-->
+        <id column="school_id" javaType="INTEGER"/>
+        <result column="school_id" property="school_id" javaType="INTEGER"/>
+        <result column="student_grade" property="student_grade" jdbcType="VARCHAR"/>
+        <result column="student_class" property="student_class" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="student_type" property="student_type" jdbcType="VARCHAR"/>
+        <result column="time" property="date" jdbcType="DATE"/>
+    </resultMap>
+
+    <select id="select" resultMap="overview" parameterType="INTEGER">
+        select
+        school_id,
+        student_grade,
+        student_class,
+        status,
+        student_type, time
+        from t_student_attendance where school_id=#{school_id} limit 0,100
+    </select>
+</mapper>
