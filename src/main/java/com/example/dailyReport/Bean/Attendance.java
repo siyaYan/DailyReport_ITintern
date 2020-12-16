@@ -3,59 +3,69 @@ package com.example.dailyReport.Bean;
 import java.util.Date;
 
 public class Attendance {
+
+    private int attend_id;
     private int school_id;
-    private String student_grade;
-    private String student_class;
-    private String status;
-    private String student_type;
-    private Date date;
+    private String class_name;
+    private String student_no;
+    private String student_name;
+    private int attend_status;
+    private Date attend_time;
+
+    public void setStudent_name(String student_name) {
+        this.student_name = student_name;
+    }
+
+    public void setAttend_id(int attend_id) {
+        this.attend_id = attend_id;
+    }
+
+    public void setAttend_status(int attend_status) {
+        this.attend_status = attend_status;
+    }
+
+    public void setAttend_time(Date attend_time) {
+        this.attend_time = attend_time;
+    }
+
+    public void setClass_name(String class_name) {
+        this.class_name = class_name;
+    }
+
+    public void setStudent_no(String student_no) {
+        this.student_no = student_no;
+    }
 
     public void setSchool_id(int school_id) {
         this.school_id = school_id;
     }
 
-    public void setStudent_class(String student_class) {
-        this.student_class = student_class;
+    public String getClass_name() {
+        return class_name;
     }
 
-    public void setStudent_grade(String student_grade) {
-        this.student_grade = student_grade;
+    public String getStudent_name() {
+        return student_name;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public String getStudent_no() {
+        return student_no;
     }
 
-    public void setStudent_type(String student_type) {
-        this.student_type=student_type;
+    public int getAttend_id() {
+        return attend_id;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public int getAttend_status() {
+        return attend_status;
+    }
+
+    public Date getAttend_time() {
+        return attend_time;
     }
 
     public int getSchool_id() {
         return school_id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public String getStudent_class() {
-        return student_class;
-    }
-
-    public String getStudent_grade() {
-        return student_grade;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String getStudent_type() {
-        return student_type;
     }
 
 }

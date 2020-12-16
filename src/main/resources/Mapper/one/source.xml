@@ -2,24 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.dailyReport.Mapper.one.source">
 
-    <resultMap id="overview" type="com.example.dailyReport.Bean.Attendance">
+    <!--private int attend_id;
+    private int school_id;
+    private String class_name;
+    private String student_no;
+    private String student_name;
+    private int attend_status;
+    private Date attend_time;-->
+    <resultMap id="attendanceTable" type="com.example.dailyReport.Bean.Attendance">
         <!--column 字段 property 必须一致-->
-        <id column="school_id" javaType="INTEGER"/>
-        <result column="school_id" property="school_id" javaType="INTEGER"/>
-        <result column="student_grade" property="student_grade" jdbcType="VARCHAR"/>
-        <result column="student_class" property="student_class" jdbcType="VARCHAR"/>
-        <result column="status" property="status" jdbcType="VARCHAR"/>
-        <result column="student_type" property="student_type" jdbcType="VARCHAR"/>
-        <result column="time" property="date" jdbcType="DATE"/>
+        <!--<id column="attend_id" javaType="INTEGER"/>-->
+        <result column="school_id" property="school_id" jdbcType="INTEGER"/>
+        <result column="student_class" property="class_name" jdbcType="VARCHAR"/>
+        <result column="student_no" property="student_no" jdbcType="VARCHAR"/>
+        <result column="student_name" property="student_name" jdbcType="VARCHAR"/>
+       <!-- <result column="position" property="position" jdbcType="VARCHAR"/>-->
+        <result column="status" property="attend_status" jdbcType="INTEGER"/>
+        <result column="time" property="attend_time" jdbcType="DATE"/>
     </resultMap>
-
-    <select id="select" resultMap="overview" parameterType="INTEGER">
+    <select id="selectAttend" resultMap="attendanceTable" parameterType="INTEGER">
         select
         school_id,
-        student_grade,
         student_class,
+        student_no,
+        student_name,
         status,
-        student_type, time
-        from t_student_attendance where school_id=#{school_id} limit 0,100
+        time
+        from t_student_attendance where school_id=#{school_id}
+                                  limit 0,500
+    </select>
+
+    <select id="selectRecentAttend" resultMap="attendanceTable" >
+        select
+            school_id,
+            student_class,
+            student_no,
+            student_name,
+            status,
+            time
+        from t_student_attendance where school_id=#{school_id}
+        <if test="date!= null ">
+            and  time &gt;= #{date}
+        </if>
+         /*order by time desc*/
+         limit 0,100
     </select>
 </mapper>

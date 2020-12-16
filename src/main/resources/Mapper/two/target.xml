@@ -1,32 +1,63 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.dailyReport.Mapper.two.target">
+    <resultMap id="attendTable" type="com.example.dailyReport.Bean.Attend">
+        <!--column 字段 property 必须一致-->
+        <!--<id column="attend_id" javaType="INTEGER"/>-->
+        <result column="school_id" property="school_id" jdbcType="INTEGER"/>
+        <result column="class_id" property="class_id" jdbcType="INTEGER"/>
+        <result column="person_id" property="person_id" jdbcType="INTEGER"/>
+        <result column="person_name" property="person_name" jdbcType="VARCHAR"/>
+        <!-- <result column="position" property="position" jdbcType="VARCHAR"/>-->
+        <result column="attend_status" property="attend_status" jdbcType="INTEGER"/>
+        <result column="attend_time" property="attend_time" jdbcType="INTEGER"/>
+    </resultMap>
 
-<!--    <resultMap id="overview" type="com.example.dailyReport.Bean.Attendance">
-        <id column="school_id" javaType="INTEGER"/>
-        <result column="student_grade" property="student_grade" jdbcType="VARCHAR"/>
-        <result column="student_class" property="student_class" jdbcType="VARCHAR"/>
-        <result column="student_status" property="student_status" jdbcType="VARCHAR"/>
-        <result column="student_type" property="student_type" jdbcType="VARCHAR"/>
-        <result column="time" property="date" jdbcType="DATE"/>
-    </resultMap>-->
-
-    <insert id="insert"  parameterType="com.example.dailyReport.Bean.Attendance" >
-        insert into attendance
-        {school_id,
-        student_grade,
-        student_class,
-        status,
-        student_type,
-        date}
+    <insert id="insertAttend"  useGeneratedKeys="true" keyColumn="attend_id" parameterType="com.example.dailyReport.Bean.Attend" >
+        insert into attend
+        (school_id,
+            class_id,
+            person_id,
+            person_name,
+            attend_status,
+            attend_time)
         values
-        {
+        (
         #{school_id},#{
-        student_grade},#{
-        student_class},#{
-        status},#{
-        student_type},#{
-        date}
-        }
+            class_id},#{
+            person_id},#{
+            person_name},#{
+            attend_status},#{
+            attend_time}
+            )
     </insert>
+
+    <select id="selectClassIdByName" resultType="INTEGER">
+        select class_id from class where class_name = #{param1} and stage = #{param2}
+    </select>
+    <select id="selectClassIdByPerson" resultType="INTEGER" parameterType="INTEGER">
+        select class_id from person_class_relation where person_id = #{person_id}
+    </select>
+    <select id="selectPersonId" resultType="INTEGER" parameterType="java.lang.String">
+        select person_id from person where third_no = #{student_no}
+    </select>
+
+    <select id="personNum" resultType="INTEGER" >
+        select count(*) from person where school_id=#{school_id}  and person_type = #{type}
+    </select>
+    <select id="abnormalNum" resultType="INTEGER" >
+        select count(*) from attend where school_id=#{school_id} and attend_status!=0
+        and attend_time >=#{date}
+    </select>
+
+    <select id="selectRecentAttend" resultMap="attendTable">
+        select
+            school_id,
+             class_id,
+             person_id,
+             person_name,
+             attend_status,
+             attend_time
+        from attend where school_id=#{school_id} and attend_time >=#{date}
+    </select>
 </mapper>
