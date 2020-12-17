@@ -10,6 +10,7 @@ import java.util.List;
 public interface target {
     //todo target 里的时间戳是10位
     Boolean insertAttend (Attend attend);
+    Boolean insertAttends (@Param("list") List<Attend> list);
     Integer selectClassIdByName (String student_class,int stage);
     Integer selectClassIdByPerson (int person_id);
     Integer selectPersonId (String student_no);

@@ -13,23 +13,43 @@
         <result column="attend_time" property="attend_time" jdbcType="INTEGER"/>
     </resultMap>
 
+    <insert id="insertAttends"  useGeneratedKeys="true" keyColumn="attend_id" parameterType="java.util.List" >
+        insert into attend(
+        school_id,
+        class_id,
+        person_id,
+        person_name,
+        attend_status,
+        attend_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+        (        #{item.school_id},#{
+                item.class_id},#{
+                item.person_id},#{
+                item.person_name},#{
+                item.attend_status},#{
+                item.attend_time}
+        )
+        </foreach>
+    </insert>
+
     <insert id="insertAttend"  useGeneratedKeys="true" keyColumn="attend_id" parameterType="com.example.dailyReport.Bean.Attend" >
         insert into attend
         (school_id,
-            class_id,
-            person_id,
-            person_name,
-            attend_status,
-            attend_time)
+         class_id,
+         person_id,
+         person_name,
+         attend_status,
+         attend_time)
         values
         (
-        #{school_id},#{
+            #{school_id},#{
             class_id},#{
             person_id},#{
             person_name},#{
             attend_status},#{
             attend_time}
-            )
+        )
     </insert>
 
     <select id="selectClassIdByName" resultType="INTEGER">
@@ -47,7 +67,7 @@
     </select>
     <select id="abnormalNum" resultType="INTEGER" >
         select count(*) from attend where school_id=#{school_id} and attend_status!=0
-        and attend_time >=#{date}
+        and attend_time &gt;= #{date} and attend_time &lt;= ${date}+86399
     </select>
 
     <select id="selectRecentAttend" resultMap="attendTable">
@@ -58,6 +78,7 @@
              person_name,
              attend_status,
              attend_time
-        from attend where school_id=#{school_id} and attend_time >=#{date}
+        from attend where school_id=#{school_id}
+    and attend_time &gt;= #{date} and attend_time &lt;= ${date}+86399
     </select>
 </mapper>

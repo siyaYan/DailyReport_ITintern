@@ -8,6 +8,7 @@ import com.example.dailyReport.Mapper.two.target;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
@@ -31,11 +32,15 @@ public class AttendService {
     @Autowired(required=false)
     private target targetData;
 
-    /*public List<Attend> selectRecentTargetAttend(int school_id,int timestapt) {
-        return selectRecentTargetAttend(school_id,timestapt);
-    }*/
+    @Autowired
+    AsyncService asyncService;
 
-    public AttendApi getattendApi(int school_id,int date) {
+    public List<Attend> selectRecentTargetAttend(int school_id,int timestapt) {
+        return targetData.selectRecentAttend(school_id,timestapt);
+    }
+
+
+    public AttendApi getAttendApi(int school_id,int date) {
         AttendApi api = new AttendApi();
         api.setDate(date);
         api.setSchool_id(school_id);
@@ -59,14 +64,14 @@ public class AttendService {
     public String abnormalRate(int school_id,int date) {
         String abnormalRate="0";
         if (targetData.abnormalNum(school_id, date) > 0) {
-            float rate=targetData.abnormalNum(school_id, date)/studentNum(school_id);
+            float rate=(float) targetData.abnormalNum(school_id, date)/studentNum(school_id);
             abnormalRate=String.valueOf(rate);
         }
          return abnormalRate;
     }
     public Integer attendChange(int school_id,int date) {
         int today=targetData.abnormalNum(school_id, date);
-        int yesterday=targetData.abnormalNum(school_id, date+86400);
+        int yesterday=targetData.abnormalNum(school_id, date-86400);
         int change=today-yesterday;
         return change;
         /*logger.info(new Date(date*1000L)+"");

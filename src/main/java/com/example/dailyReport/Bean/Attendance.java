@@ -1,5 +1,6 @@
 package com.example.dailyReport.Bean;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Attendance {
@@ -10,7 +11,7 @@ public class Attendance {
     private String student_no;
     private String student_name;
     private int attend_status;
-    private Date attend_time;
+    private Timestamp attend_time;
 
     public void setStudent_name(String student_name) {
         this.student_name = student_name;
@@ -24,7 +25,7 @@ public class Attendance {
         this.attend_status = attend_status;
     }
 
-    public void setAttend_time(Date attend_time) {
+    public void setAttend_time(Timestamp attend_time) {
         this.attend_time = attend_time;
     }
 

@@ -2,13 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.dailyReport.Mapper.one.source">
 
-    <!--private int attend_id;
-    private int school_id;
-    private String class_name;
-    private String student_no;
-    private String student_name;
-    private int attend_status;
-    private Date attend_time;-->
     <resultMap id="attendanceTable" type="com.example.dailyReport.Bean.Attendance">
         <!--column 字段 property 必须一致-->
         <!--<id column="attend_id" javaType="INTEGER"/>-->
@@ -18,9 +11,9 @@
         <result column="student_name" property="student_name" jdbcType="VARCHAR"/>
        <!-- <result column="position" property="position" jdbcType="VARCHAR"/>-->
         <result column="status" property="attend_status" jdbcType="INTEGER"/>
-        <result column="time" property="attend_time" jdbcType="DATE"/>
+        <result column="time" property="attend_time" />
     </resultMap>
-    <select id="selectAttend" resultMap="attendanceTable" parameterType="INTEGER">
+    <select id="selectAttend" resultMap="attendanceTable" >
         select
         school_id,
         student_class,
@@ -29,7 +22,7 @@
         status,
         time
         from t_student_attendance where school_id=#{school_id}
-                                  limit 0,500
+        and  time &gt;= #{date}
     </select>
 
     <select id="selectRecentAttend" resultMap="attendanceTable" >
@@ -45,6 +38,13 @@
             and  time &gt;= #{date}
         </if>
          /*order by time desc*/
-         limit 0,100
+         limit #{startNum}, ${limit}
+    </select>
+    <select id="countRecentAttend" resultType="INTEGER">
+        select count(*)
+        from t_student_attendance where school_id=#{school_id}
+        <if test="date!= null ">
+            and  time &gt;= #{date}
+        </if>
     </select>
 </mapper>

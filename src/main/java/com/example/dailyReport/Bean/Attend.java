@@ -18,6 +18,16 @@ public class Attend {
     private int attend_status;
     private String attend_time;
 
+    /*public Attend(int attend_id,int school_id,int class_id,int person_id,int attend_status,String person_name,String attend_time) {
+        this.attend_id=attend_id;
+        this.school_id=school_id;
+        this.class_id=class_id;
+        this.person_id=person_id;
+        this.attend_status=attend_status;
+        this.person_name=person_name;
+        this.attend_time=attend_time;
+    }*/
+
     public void setAttend_id(int attend_id) {
         this.attend_id = attend_id;
     }

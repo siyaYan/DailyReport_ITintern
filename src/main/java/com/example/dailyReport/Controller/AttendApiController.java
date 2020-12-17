@@ -25,13 +25,13 @@ import java.util.List;
 public class AttendApiController {
     @Autowired
     private AttendService attendService;
-
+    //todo test api int date(1608048000) 12/16/00
     @RequestMapping("/api/{id}/{date}")
     public AttendApi attendApi(@PathVariable(value="id") int school_id, @PathVariable(value="date") int date) {
-      /*  List<Attend> attends=attendService.selectAttend(school_id);
-        attendService.insertAttend(attends);
-        attends=null;*/
-        return attendService.getattendApi(school_id,date);
+        return attendService.getAttendApi(school_id,date);
     }
-
+    @RequestMapping("/api/{id}/{date}/{stage}")
+    public AttendApi gradeApi(@PathVariable(value="id") int school_id, @PathVariable(value="date") int date) {
+        return attendService.getAttendApi(school_id,date);
+    }
 }
