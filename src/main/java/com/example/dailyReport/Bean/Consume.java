@@ -1,4 +1,4 @@
 package com.example.dailyReport.Bean;
 
-public class GradeApi {
+public class Consume {
 }

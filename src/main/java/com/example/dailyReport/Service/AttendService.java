@@ -1,6 +1,7 @@
 package com.example.dailyReport.Service;
 
 import com.example.dailyReport.Bean.Attend;
+import com.example.dailyReport.Bean.AttendAbnormal;
 import com.example.dailyReport.Bean.AttendApi;
 import com.example.dailyReport.Bean.Attendance;
 import com.example.dailyReport.Mapper.one.source;
@@ -39,6 +40,27 @@ public class AttendService {
         return targetData.selectRecentAttend(school_id,timestapt);
     }
 
+    public List<AttendAbnormal> getAbnormal(int school_id,int date,int stage) {
+        List<AttendAbnormal> attendAbnormals = new ArrayList<>();
+        List<Integer> classIds = new ArrayList<>();
+        classIds = targetData.selectAbnormalClassId(school_id, date);
+
+        System.out.println(classIds.size());
+
+        for (Integer classId:classIds) {
+            AttendAbnormal attendAbnormal=targetData.selectAbnormalClass(school_id,classId);
+            attendAbnormal.setLeave_sum(targetData.selectTypeSum(school_id,date,classId,1));
+            attendAbnormal.setLate_sum(targetData.selectTypeSum(school_id,date,classId,2));
+            attendAbnormal.setAbsent_sum(targetData.selectTypeSum(school_id,date,classId,3));
+            attendAbnormal.setLeave_change(attendAbnormal.getLeave_sum()-targetData.selectTypeSum(school_id,date-86400,classId,1));
+            attendAbnormal.setLate_change(attendAbnormal.getLate_sum()-targetData.selectTypeSum(school_id,date-86400,classId,2));
+            attendAbnormal.setAbsent_change(attendAbnormal.getAbsent_sum()-targetData.selectTypeSum(school_id,date-86400,classId,3));
+
+            System.out.println(targetData.selectAbnormalClass(school_id,classId).getClass_name());
+            attendAbnormals.add(attendAbnormal);
+        }
+        return attendAbnormals;
+    }
 
     public AttendApi getAttendApi(int school_id,int date) {
         AttendApi api = new AttendApi();

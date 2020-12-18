@@ -12,6 +12,26 @@
         <result column="attend_status" property="attend_status" jdbcType="INTEGER"/>
         <result column="attend_time" property="attend_time" jdbcType="INTEGER"/>
     </resultMap>
+    <resultMap id="abnormalClass" type="com.example.dailyReport.Bean.AttendAbnormal">
+        <result column="class_name" property="class_name" jdbcType="VARCHAR"/>
+        <result column="stage" property="stage" jdbcType="INTEGER"/>
+        <result column="class_no" property="leave_sum" jdbcType="INTEGER"/>
+    </resultMap>
+    <!-- private int stage;
+    private int leave_sum;
+    private String class_name;-->
+    <select id="selectTypeSum" resultType="INTEGER">
+            select count(*) from attend  where school_id=#{school_id} and class_id = #{class_id} and attend_status =#{type}
+            and attend_time &gt;= ${date} and attend_time &lt;= ${date}+86399
+    </select>
+    <select id="selectAbnormalClassId" resultType="INTEGER">
+        select DISTINCT class_id from attend where school_id=#{school_id}  and attend_status !=0
+            and attend_time &gt;= ${date} and attend_time &lt;= ${date}+86399
+    </select>
+    <select id="selectAbnormalClass"   resultMap="abnormalClass">
+            select class_name, stage,class_no
+            from class where school_id=#{school_id}  and class_id = #{class_id}
+    </select>
 
     <insert id="insertAttends"  useGeneratedKeys="true" keyColumn="attend_id" parameterType="java.util.List" >
         insert into attend(
