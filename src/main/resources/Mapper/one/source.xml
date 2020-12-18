@@ -21,8 +21,10 @@
         student_name,
         status,
         time
-        from t_student_attendance where school_id=#{school_id}
-        and  time &gt;= #{date}
+        from t_student_attendance where school_id=#{school_id} and status!=1
+        <if test="date!= null ">
+            and  time &gt;= #{date}
+        </if>
     </select>
 
     <select id="selectRecentAttend" resultMap="attendanceTable" >
@@ -33,7 +35,7 @@
             student_name,
             status,
             time
-        from t_student_attendance where school_id=#{school_id}
+        from t_student_attendance where school_id=#{school_id} and status!=1
         <if test="date!= null ">
             and  time &gt;= #{date}
         </if>
@@ -42,7 +44,7 @@
     </select>
     <select id="countRecentAttend" resultType="INTEGER">
         select count(*)
-        from t_student_attendance where school_id=#{school_id}
+        from t_student_attendance where school_id=#{school_id} and status!=1
         <if test="date!= null ">
             and  time &gt;= #{date}
         </if>
