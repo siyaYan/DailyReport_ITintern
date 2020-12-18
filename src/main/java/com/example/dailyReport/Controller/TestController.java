@@ -18,6 +18,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ *
+ * @Params: ADD get classId and PersonId test
+ * @Author: Siya(Xiran) Yan
+ * @Date: 11:15 15/12/20
+ */
 @RestController
 @RequestMapping("/test")
 

@@ -13,6 +13,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+/**
+ *
+ * @Params: ADD get classId and PersonId test
+ * @Author: Siya(Xiran) Yan
+ * @Date: 11:15 15/12/20
+ */
 @RestController
 @RequestMapping("/async")
 public class AsyncController {

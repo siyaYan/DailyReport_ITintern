@@ -13,7 +13,12 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
 
-
+/**
+ *
+ * @Params: mapper2
+ * @Author: Siya(Xiran) Yan
+ * @Date: 11:14 14/12/20
+ */
 @Configuration
 @MapperScan(basePackages = "com.example.dailyReport.Mapper.two" , sqlSessionFactoryRef = "targetFactory")
 public class TargetConfig {

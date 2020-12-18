@@ -3,6 +3,12 @@ package com.example.dailyReport.Bean;
 import java.sql.Timestamp;
 import java.util.Date;
 
+/**
+ *
+ * @Params: annotate position parameters
+ * @Author: Siya(Xiran) Yan
+ * @Date: 11:14 15/12/20
+ */
 public class Attendance {
 
     private int attend_id;

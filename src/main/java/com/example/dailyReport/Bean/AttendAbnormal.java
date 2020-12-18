@@ -1,7 +1,12 @@
 package com.example.dailyReport.Bean;
 
-import java.util.List;
 
+/**
+ *
+ * @Params:
+ * @Author: Siya(Xiran) Yan
+ * @Date: 11:14 17/12/20
+ */
 public class AttendAbnormal {
     private String class_name;
     private Integer stage;

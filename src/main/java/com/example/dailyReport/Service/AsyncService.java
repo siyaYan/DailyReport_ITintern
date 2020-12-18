@@ -17,6 +17,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ *
+ * @Params: async date from remote
+ * @Author: Siya(Xiran) Yan
+ * @Date: 11:17 15/12/20
+ */
 @Service
 public class AsyncService {
     private static final Logger logger = LoggerFactory.getLogger(AttendService.class);

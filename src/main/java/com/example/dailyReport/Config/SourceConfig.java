@@ -12,29 +12,13 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
-/*
-@Configuration
-@MapperScan(basePackages = "com.example.dailyReport.Mapper" , sqlSessionFactoryRef = "sourceFactory")
-public class SourceConfig {
-    @Bean(name = "sourceData")
-    @Primary
-    @ConfigurationProperties(prefix = "spring.datasource.source")
-    public DataSource getSource() {
-        return DataSourceBuilder.create().build();
-    }
 
-    @Bean(name = "sourceFactory")
-    @Primary
-    public SqlSessionFactory getSourceFactory(@Qualifier("sourceData") DataSource dataSource) throws Exception{
-        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-        bean.setDataSource(dataSource);
-        bean.setMapperLocations(
-                new PathMatchingResourcePatternResolver().getResource("classpath*:Mapper/source.xml")
-        );
-        return bean.getObject();
-    }
-}
-*/
+/**
+ *
+ * @Params: mapper1
+ * @Author: Siya(Xiran) Yan
+ * @Date: 11:14 14/12/20
+ */
 @Configuration
 @MapperScan(basePackages = "com.example.dailyReport.Mapper.one", sqlSessionFactoryRef = "oneSqlSessionFactory")
 public class SourceConfig {
