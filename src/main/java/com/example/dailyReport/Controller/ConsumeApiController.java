@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
 *
@@ -29,11 +30,8 @@ public class ConsumeApiController {
     public ConsumeApi getDayConsume(@PathVariable(value="id") int school_id, @PathVariable(value="date") String date) throws ParseException {
         return consumeService.getSumAndChange(school_id,dateTranferService.dateStringTranferInt(date));
     }
-   /* @RequestMapping("/api/{id}/{start}/{end}")
-    public ConsumeApi getConsumes(@PathVariable(value="id") int school_id, @PathVariable(value="start") String start,@PathVariable(value="end") String end) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        int starttime=Integer.valueOf(String.valueOf(simpleDateFormat.parse(start).getTime()/1000));
-        int endtime=Integer.valueOf(String.valueOf(simpleDateFormat.parse(end).getTime()/1000));
-        return consumeService.getSumAndChange(school_id,datetime);
-    }*/
+    @RequestMapping("/api/{id}/{start}/{end}")
+    public List<ConsumeApi> getConsumes(@PathVariable(value="id") int school_id, @PathVariable(value="start") String start, @PathVariable(value="end") String end) throws ParseException {
+        return consumeService.getConsumes(school_id,dateTranferService.dateStringTranferInt(start),dateTranferService.dateStringTranferInt(end));
+    }
 }

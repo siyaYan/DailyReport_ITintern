@@ -21,9 +21,21 @@ public class ConsumeService {
     private target targetData;
     @Autowired
     private DateTranferService dateTranferService;
-    /*public List<ConsumeApi> getConsumes(int school_id,int date) {
 
-    }*/
+    public List<ConsumeApi> getConsumes(int school_id,int start,int end) {
+        int day=((end-start)%86400==0)? (end-start)/86400:(end-start)/86400+1;
+        System.out.println(day);
+        List<ConsumeApi> consumeApiList = new ArrayList<>();
+        for (int i = 0; i < day; i++) {
+            ConsumeApi consumeApi=new ConsumeApi();
+            consumeApi.setConsume_sum(getConsumeSum(school_id,start+(i*86400)));
+            consumeApi.setRecharge_sum(getRechargeSum(school_id,start+(i*86400)));
+            consumeApi.setDate(dateTranferService.dateIntTranferString(start+(i*86400)));
+            consumeApiList.add(consumeApi);
+        }
+        return consumeApiList;
+
+    }
     public ConsumeApi getSumAndChange(int school_id,int date) {
         ConsumeApi consumeApi=new ConsumeApi();
         consumeApi.setConsume_sum(getConsumeSum(school_id,date));
