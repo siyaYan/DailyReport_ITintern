@@ -13,6 +13,7 @@
         <result column="status" property="attend_status" jdbcType="INTEGER"/>
         <result column="time" property="attend_time" />
     </resultMap>
+
     <select id="selectAttend" resultMap="attendanceTable" >
         select
         school_id,
@@ -42,6 +43,7 @@
          /*order by time desc*/
          limit #{startNum}, ${limit}
     </select>
+
     <select id="countRecentAttend" resultType="INTEGER">
         select count(*)
         from t_student_attendance where school_id=#{school_id} and status!=1

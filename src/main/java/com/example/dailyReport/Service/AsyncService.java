@@ -46,8 +46,6 @@ public class AsyncService {
            /* if (i == page - 1) {
                 limit=num;
             }*/
-          /*  attendances.addAll(sourceData.selectRecentAttend(school_id,date,start,limit));
-            logger.info("selectNow:"+attendances.size());*/
             attends.addAll(transfers(sourceData.selectRecentAttend(school_id,date,start,limit)));
             logger.info("transferNow:"+attends.size());
         }

@@ -2,6 +2,7 @@ package com.example.dailyReport.Controller;
 
 import com.example.dailyReport.Bean.Attend;
 import com.example.dailyReport.Service.AsyncService;
+import com.example.dailyReport.Service.DateTranferService;
 import com.example.dailyReport.Service.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,8 @@ public class AsyncController {
     private AsyncService asyncService;
     @Autowired
     private PageService pageService;
+    @Autowired
+    private DateTranferService dateTranferService;
     /*@RequestMapping("/selectFromTarget/{id}/{date}")
     public List<Attend> selectRecentTargetAttend(@PathVariable(value="id") int school_id, @PathVariable(value="date") int date) {
         return asyncService.selectRecentTargetAttend(school_id,date);
@@ -51,7 +54,6 @@ public class AsyncController {
     //todo test date async (2020-12-16)
     @RequestMapping("/{id}/{date}")
     public String setAsync(@PathVariable(value="id") int school_id,@PathVariable(value="date") String date) throws InterruptedException, ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return pageService.setAsync(school_id,new Timestamp(simpleDateFormat.parse(date).getTime()));
+        return pageService.setAsync(school_id,dateTranferService.dateStringTranferTimestamp(date));
     }
 }

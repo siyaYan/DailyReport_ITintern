@@ -4,6 +4,7 @@ import com.example.dailyReport.Bean.Attend;
 import com.example.dailyReport.Bean.Attendance;
 import com.example.dailyReport.Service.AsyncService;
 import com.example.dailyReport.Service.AttendService;
+import com.example.dailyReport.Service.DateTranferService;
 import com.example.dailyReport.Service.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -33,6 +34,8 @@ public class TestController {
     @Autowired
     private AttendService attendService;
     @Autowired
+    private DateTranferService dateTranferService;
+    @Autowired
     private PageService pageService;
     @RequestMapping("/selectClassIds")
     public List<Integer> selectClassIds() {
@@ -53,9 +56,7 @@ public class TestController {
 
     @RequestMapping("/select/{id}/{date}")
     public List<Attendance> select(@PathVariable(value="id") int school_id, @PathVariable(value="date") String date) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println(simpleDateFormat.parse(date));
-        return asyncService.selectAttendance(school_id,new Timestamp(simpleDateFormat.parse(date).getTime()));
+        return asyncService.selectAttendance(school_id,dateTranferService.dateStringTranferTimestamp(date));
     }
 
    /* @RequestMapping("/insert/{id}")

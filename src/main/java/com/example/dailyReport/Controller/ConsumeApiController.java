@@ -1,7 +1,16 @@
 package com.example.dailyReport.Controller;
 
+import com.example.dailyReport.Bean.ConsumeApi;
+import com.example.dailyReport.Service.AttendService;
+import com.example.dailyReport.Service.ConsumeService;
+import com.example.dailyReport.Service.DateTranferService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
 *
@@ -12,4 +21,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/consume")
 public class ConsumeApiController {
+    @Autowired
+    private ConsumeService consumeService;
+    @Autowired
+    private DateTranferService dateTranferService;
+    @RequestMapping("/api/{id}/{date}")
+    public ConsumeApi getDayConsume(@PathVariable(value="id") int school_id, @PathVariable(value="date") String date) throws ParseException {
+        return consumeService.getSumAndChange(school_id,dateTranferService.dateStringTranferInt(date));
+    }
+   /* @RequestMapping("/api/{id}/{start}/{end}")
+    public ConsumeApi getConsumes(@PathVariable(value="id") int school_id, @PathVariable(value="start") String start,@PathVariable(value="end") String end) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        int starttime=Integer.valueOf(String.valueOf(simpleDateFormat.parse(start).getTime()/1000));
+        int endtime=Integer.valueOf(String.valueOf(simpleDateFormat.parse(end).getTime()/1000));
+        return consumeService.getSumAndChange(school_id,datetime);
+    }*/
 }

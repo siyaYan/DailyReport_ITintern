@@ -29,8 +29,6 @@ import java.util.List;
 public class AttendService {
     private static final Logger logger = LoggerFactory.getLogger(AttendService.class);
     @Autowired(required=false)
-    private source sourceData;
-    @Autowired(required=false)
     private target targetData;
 
     @Autowired
