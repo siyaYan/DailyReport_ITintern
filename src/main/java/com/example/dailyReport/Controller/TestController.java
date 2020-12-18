@@ -7,16 +7,12 @@ import com.example.dailyReport.Service.AttendService;
 import com.example.dailyReport.Service.DateTranferService;
 import com.example.dailyReport.Service.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,6 +33,7 @@ public class TestController {
     private DateTranferService dateTranferService;
     @Autowired
     private PageService pageService;
+
     @RequestMapping("/selectClassIds")
     public List<Integer> selectClassIds() {
         List<String> test = new ArrayList<>();
@@ -45,6 +42,7 @@ public class TestController {
         test.add("2019级初中2班");
         return asyncService.selectClassIds(test);
     }
+
     @RequestMapping("/selectPersonIds")
     public List<Integer> selectPersonIds() {
         List<String> test = new ArrayList<>();
@@ -59,43 +57,28 @@ public class TestController {
         return asyncService.selectAttendance(school_id,dateTranferService.dateStringTranferTimestamp(date));
     }
 
-   /* @RequestMapping("/insert/{id}")
-    public void insertAttend(@PathVariable(value="id") int school_id) {
-        List<Attend> attends= asyncService.selectAttend(school_id);
-        asyncService.insertAttend(attends);
-        attends=null;
-    }*/
-    //@RequestMapping("/insertAttends/{id}")
-    //10 test
-   /* public List<Attend> insertAttends(@PathVariable(value="id") int school_id) throws InterruptedException {
-        //List<Attend> attends= asyncService.selectAttend(school_id);
-        List<Attend> attends = new ArrayList<>();
-        for (int i=0;i<10;i++) {
-            Attend attend = new Attend();
-            attend.setAttend_id(i);
-            attends.add(attend);
-        }
-        asyncService.insertAttends(attends);
+    @RequestMapping("/selectAttends/{id}")
+    public List<Attend> insertAttends(@PathVariable(value="id") int school_id) throws InterruptedException {
+        List<Attend> attends= asyncService.selectAttends(school_id,null);
         return attends;
-    }*/
+    }
+
     @RequestMapping("/page1/{id}")
-    //10 test
     public List<Attendance> pageTest1(@PathVariable(value="id") int school_id) {
         return pageService.pageTest1(school_id);
     }
+
     @RequestMapping("/page2/{id}")
-    //10 test
     public List<Attend> pageTest2(@PathVariable(value="id") int school_id) {
         return pageService.pageTest2(school_id);
     }
-    @RequestMapping("/async/{id}")
-    //10 test
-    public String setAsync(@PathVariable(value="id") int school_id) throws InterruptedException {
 
+    @RequestMapping("/async/{id}")
+    public String setAsync(@PathVariable(value="id") int school_id) throws InterruptedException {
         return pageService.setAsync(school_id,null);
     }
+
     @RequestMapping("/attendapi/{id}/{date}")
-    //10 test
     public List<Attend> attendApi(@PathVariable(value="id") int school_id,@PathVariable(value="date")int date) throws InterruptedException {
         return attendService.selectRecentTargetAttend(school_id,date);
     }

@@ -3,20 +3,13 @@ package com.example.dailyReport.Service;
 import com.example.dailyReport.Bean.Attend;
 import com.example.dailyReport.Bean.AttendAbnormal;
 import com.example.dailyReport.Bean.AttendApi;
-import com.example.dailyReport.Bean.Attendance;
-import com.example.dailyReport.Mapper.one.source;
 import com.example.dailyReport.Mapper.two.target;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,7 +28,7 @@ public class AttendService {
     AsyncService asyncService;
 
     public List<Attend> selectRecentTargetAttend(int school_id,int timestapt) {
-        return targetData.selectRecentAttend(school_id,timestapt);
+        return targetData.selectDayAttend(school_id,timestapt);
     }
 
     public List<AttendAbnormal> getAbnormal(int school_id,int date,int stage) {
@@ -94,7 +87,5 @@ public class AttendService {
         int yesterday=targetData.abnormalNum(school_id, date-86400);
         int change=today-yesterday;
         return change;
-        /*logger.info(new Date(date*1000L)+"");
-        logger.info(new Date((date+86400)*1000L)+"");*/
     }
 }

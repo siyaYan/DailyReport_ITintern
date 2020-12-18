@@ -8,13 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,13 +43,12 @@ public class AsyncService {
            /* if (i == page - 1) {
                 limit=num;
             }*/
-            attends.addAll(transfers(sourceData.selectRecentAttend(school_id,date,start,limit)));
+            attends.addAll(transfers(sourceData.pageSelectAttend(school_id,date,start,limit)));
             logger.info("transferNow:"+attends.size());
         }
     }
     @Async
-    public void insertAttends(int page,List<Attend> attends) throws InterruptedException {
-        logger.info("ins");
+    public void pageInsertAttends(int page, List<Attend> attends) throws InterruptedException {
         while (attends.size()==0) {
             logger.info("sleep2");
             Thread.sleep(1000);
@@ -70,28 +66,6 @@ public class AsyncService {
         }
     }
 
-    /*
-    @Async
-    public void transferAttend(int num,List<Attend> attends ,List<Attendance> attendances) throws InterruptedException {
-        logger.info("intrans");
-        //Thread.sleep(100);
-        for (int i = 0; i < num; i++) {
-            while (attendances.get(i)==null) {
-                logger.info("sleep1"+attendances.size()+"i："+i);
-                Thread.sleep(500);
-            }
-            logger.info("transferALL"+attends.size());
-            attends.add(transfer(attendances.get(i)));
-        }
-        */
-/*for (Attendance attendance : attendances) {
-            attends.add(transfer(attendance));
-        }*//*
-
-    }
-*/
-
-    //todo maybe change the same attend
     public List<Attend> transfers(List<Attendance> attendances) {
         List<Attend> attends = new ArrayList<>();
         for (Attendance attendance : attendances) {
@@ -99,7 +73,6 @@ public class AsyncService {
         }
         return  attends;
     }
-
 
     public Integer selectPersonId (String student_no)
     {
@@ -143,12 +116,9 @@ public class AsyncService {
     }
 
     public Integer selectClassIdByPerson (Integer person_id) {
-        //todo write into xml
         return targetData.selectClassIdByPerson(person_id);
-        //logger.info(""+class_name+stage);
-
-        /*List<Student> students*/
     }
+
     public Integer selectClassIdByName (String student_class) {
         //todo write into xml
         String type = student_class.substring(5, 7);
@@ -178,12 +148,27 @@ public class AsyncService {
     public List<Attendance> selectAttendance(int school_id,Timestamp date) {
         return sourceData.selectAttend(school_id,date);
     }
-    /*  public boolean insert(Attend attend) {
-        return targetData.insertAttend(attend);
+    public List<Attend> selectAttends(int school_id,Timestamp date) {
+        return transfers(sourceData.selectAttend(school_id,date));
     }
-    public void insertAttend (List<Attend> attends) {
-        for (Attend attend : attends) {
-            insert(attend);
+    /*
+    @Async
+    public void transferAttend(int num,List<Attend> attends ,List<Attendance> attendances) throws InterruptedException {
+        logger.info("intrans");
+        //Thread.sleep(100);
+        for (int i = 0; i < num; i++) {
+            while (attendances.get(i)==null) {
+                logger.info("sleep1"+attendances.size()+"i："+i);
+                Thread.sleep(500);
+            }
+            logger.info("transferALL"+attends.size());
+            attends.add(transfer(attendances.get(i)));
         }
-    }*/
+        */
+/*for (Attendance attendance : attendances) {
+            attends.add(transfer(attendance));
+        }*//*
+
+    }
+*/
 }

@@ -20,6 +20,7 @@
         <result column="class_no" property="leave_sum" jdbcType="INTEGER"/>
     </resultMap>
 
+
     <select id="selectTypeSum" resultType="INTEGER">
             select count(*) from attend  where school_id=#{school_id} and class_id = #{class_id} and attend_status =#{type}
             and attend_time &gt;= ${date} and attend_time &lt; ${date}+86400
@@ -55,25 +56,6 @@
         </foreach>
     </insert>
 
-    <insert id="insertAttend"  useGeneratedKeys="true" keyColumn="attend_id" parameterType="com.example.dailyReport.Bean.Attend" >
-        insert into attend
-        (school_id,
-         class_id,
-         person_id,
-         person_name,
-         attend_status,
-         attend_time)
-        values
-        (
-            #{school_id},#{
-            class_id},#{
-            person_id},#{
-            person_name},#{
-            attend_status},#{
-            attend_time}
-        )
-    </insert>
-
     <select id="selectClassIdByName" resultType="INTEGER">
         select class_id from class where class_name = #{param1} and stage = #{param2}
     </select>
@@ -96,7 +78,7 @@
     </select>
 
     <!--Order by attend_time desc-->
-    <select id="selectRecentAttend" resultMap="attendTable">
+    <select id="selectDayAttend" resultMap="attendTable">
         select
             school_id,
              class_id,
@@ -109,6 +91,7 @@
         order by attend_time desc
     </select>
 
+    <!--Consume-->
     <select id="selectDayConsume" resultType="INTEGER">
         select
             amount

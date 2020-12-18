@@ -28,7 +28,7 @@
         </if>
     </select>
 
-    <select id="selectRecentAttend" resultMap="attendanceTable" >
+    <select id="pageSelectAttend" resultMap="attendanceTable" >
         select
             school_id,
             student_class,
@@ -44,7 +44,7 @@
          limit #{startNum}, ${limit}
     </select>
 
-    <select id="countRecentAttend" resultType="INTEGER">
+    <select id="countAttend" resultType="INTEGER">
         select count(*)
         from t_student_attendance where school_id=#{school_id} and status!=1
         <if test="date!= null ">
