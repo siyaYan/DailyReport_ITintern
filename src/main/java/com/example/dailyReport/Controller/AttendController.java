@@ -27,7 +27,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/attend")
-public class AttendApiController {
+public class AttendController {
     @Autowired
     private AttendService attendService;
     @Autowired

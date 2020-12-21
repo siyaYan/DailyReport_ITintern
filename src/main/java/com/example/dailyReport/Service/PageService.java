@@ -30,7 +30,7 @@ public class PageService {
     AsyncService asyncService;
 
     public String setAsync(int school_id, Timestamp date) throws InterruptedException {
-        int num=sourceData.countAttend(school_id,date);
+        int num=sourceData.countAttendance(school_id,date);
         List<Attendance> attendances = new ArrayList<>();
         List<Attend> attends = new ArrayList<>();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -44,9 +44,9 @@ public class PageService {
     public List<Attendance> selectRecentSourceAttendance(int school_id, Timestamp date) {
         List<Attend> attends = new ArrayList<>();
         List<Attendance> attendances = new ArrayList<>();
-        int page=(int)(sourceData.countAttend(school_id,date)/1000)+1;
+        int page=(int)(sourceData.countAttendance(school_id,date)/1000)+1;
         for (int i = 0; i < page; i++) {
-            attendances.addAll(sourceData.pageSelectAttend(school_id,date,page*1000,1000));
+            attendances.addAll(sourceData.pageSelectAttendance(school_id,date,page*1000,1000));
         }
         return attendances;
     }
@@ -54,14 +54,14 @@ public class PageService {
     public List<Attend> pageTest2(int school_id) {
         List<Attend> attends = new ArrayList<>();
         List<Attendance> attendances = new ArrayList<>();
-        attendances.addAll(sourceData.pageSelectAttend(school_id,null,0,1000));
+        attendances.addAll(sourceData.pageSelectAttendance(school_id,null,0,1000));
         attends.addAll(asyncService.transfers(attendances));
         return attends;
     }
 
     public List<Attendance> pageTest1(int school_id) {
         List<Attendance> attendances = new ArrayList<>();
-        attendances.addAll(sourceData.pageSelectAttend(school_id,null,0,1000));
+        attendances.addAll(sourceData.pageSelectAttendance(school_id,null,0,1000));
         return attendances;
     }
 

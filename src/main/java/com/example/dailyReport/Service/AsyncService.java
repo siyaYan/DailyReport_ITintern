@@ -28,12 +28,10 @@ public class AsyncService {
     @Autowired(required=false)
     private target targetData;
 
-/*    List<Attendance> attendances = new ArrayList<>();
-    List<Attend> attends = new ArrayList<>();*/
-    //必须要这样写start end
+    //page select source data
     @Async
     public void selectRecentSourceAttendance(int school_id, Timestamp date, int num, List<Attendance> attendances, List<Attend> attends) {
-        int page=(num/1000)+1;
+        int page=(num%1000==0?num/1000:(num/1000)+1);
         int start=0;
         int limit=1000;
         for (int i = 0; i < page; i++) {
@@ -43,10 +41,11 @@ public class AsyncService {
            /* if (i == page - 1) {
                 limit=num;
             }*/
-            attends.addAll(transfers(sourceData.pageSelectAttend(school_id,date,start,limit)));
+            attends.addAll(transfers(sourceData.pageSelectAttendance(school_id,date,start,limit)));
             logger.info("transferNow:"+attends.size());
         }
     }
+    //page insert into target
     @Async
     public void pageInsertAttends(int page, List<Attend> attends) throws InterruptedException {
         while (attends.size()==0) {
@@ -65,7 +64,7 @@ public class AsyncService {
             logger.info("insertNow:");
         }
     }
-
+    //util to transfer data
     public List<Attend> transfers(List<Attendance> attendances) {
         List<Attend> attends = new ArrayList<>();
         for (Attendance attendance : attendances) {
@@ -73,20 +72,6 @@ public class AsyncService {
         }
         return  attends;
     }
-
-    public Integer selectPersonId (String student_no)
-    {
-        return targetData.selectPersonId(student_no);
-    }
-
-    public List<Integer> selectPersonIds (List<String> persons) {
-        List<Integer> personIds = new ArrayList<>();
-        for (String personId : persons) {
-            personIds.add(selectPersonId(personId));
-        }
-        return personIds;
-    }
-
     public Attend transfer(Attendance attendance) {
         Attend attend = new Attend();
         //System.out.println(attendance.getStudent_no());
@@ -113,6 +98,20 @@ public class AsyncService {
 
         /* 考勤状态：0.正常 1请假 2迟到 3缺勤*/
         /*出勤情况：1：正常2：事假3：迟到6：病假7：缺卡8：请假*/
+    }
+
+    //util to select PersonId&classId
+    public Integer selectPersonId (String student_no)
+    {
+        return targetData.selectPersonId(student_no);
+    }
+
+    public List<Integer> selectPersonIds (List<String> persons) {
+        List<Integer> personIds = new ArrayList<>();
+        for (String personId : persons) {
+            personIds.add(selectPersonId(personId));
+        }
+        return personIds;
     }
 
     public Integer selectClassIdByPerson (Integer person_id) {
@@ -146,10 +145,10 @@ public class AsyncService {
     }
 
     public List<Attendance> selectAttendance(int school_id,Timestamp date) {
-        return sourceData.selectAttend(school_id,date);
+        return sourceData.selectAttendance(school_id,date);
     }
     public List<Attend> selectAttends(int school_id,Timestamp date) {
-        return transfers(sourceData.selectAttend(school_id,date));
+        return transfers(sourceData.selectAttendance(school_id,date));
     }
     /*
     @Async

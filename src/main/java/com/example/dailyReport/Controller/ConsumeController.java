@@ -21,7 +21,7 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("/consume")
-public class ConsumeApiController {
+public class ConsumeController {
     @Autowired
     private ConsumeService consumeService;
     @Autowired

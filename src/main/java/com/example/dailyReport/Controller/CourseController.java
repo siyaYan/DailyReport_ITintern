@@ -2,11 +2,9 @@ package com.example.dailyReport.Controller;
 
 import com.example.dailyReport.Bean.CourseApi;
 import com.example.dailyReport.Bean.Subject;
-import com.example.dailyReport.Bean.Teacher;
 import com.example.dailyReport.Service.CourseService;
 import com.example.dailyReport.Service.DateTranferService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.ParseException;
 import java.util.List;
 
+/**
+ *
+ * @Params: course
+ * @Author: Siya(Xiran) Yan
+ * @Date: 10:19 18/12/20
+ */
 @RestController
 @RequestMapping("/course")
 public class CourseController {

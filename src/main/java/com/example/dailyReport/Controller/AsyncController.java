@@ -35,12 +35,12 @@ public class AsyncController {
     }*/
     //todo java heap space error
     /*@RequestMapping("/select/{id}")
-    public List<Attend> selectAttend(@PathVariable(value="id") int school_id) {
-        return asyncService.selectAttend(school_id);
+    public List<Attend> selectAttendance(@PathVariable(value="id") int school_id) {
+        return asyncService.selectAttendance(school_id);
     }*/
    /* @RequestMapping("/insert/{id}")
     public void insertAttend(@PathVariable(value="id") int school_id) {
-        List<Attend> attends= asyncService.selectAttend(school_id);
+        List<Attend> attends= asyncService.selectAttendance(school_id);
         asyncService.insertAttend(attends);
         attends=null;
     }*/

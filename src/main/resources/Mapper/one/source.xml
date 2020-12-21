@@ -14,7 +14,7 @@
         <result column="time" property="attend_time" />
     </resultMap>
 
-    <select id="selectAttend" resultMap="attendanceTable" >
+    <select id="selectAttendance" resultMap="attendanceTable" >
         select
         school_id,
         student_class,
@@ -28,7 +28,7 @@
         </if>
     </select>
 
-    <select id="pageSelectAttend" resultMap="attendanceTable" >
+    <select id="pageSelectAttendance" resultMap="attendanceTable" >
         select
             school_id,
             student_class,
@@ -44,7 +44,7 @@
          limit #{startNum}, ${limit}
     </select>
 
-    <select id="countAttend" resultType="INTEGER">
+    <select id="countAttendance" resultType="INTEGER">
         select count(*)
         from t_student_attendance where school_id=#{school_id} and status!=1
         <if test="date!= null ">
