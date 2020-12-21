@@ -3,7 +3,7 @@ package com.example.dailyReport.Bean;
 
 /**
  *
- * @Params:
+ * @Params: attend abnormal data
  * @Author: Siya(Xiran) Yan
  * @Date: 11:14 17/12/20
  */

@@ -2,6 +2,12 @@ package com.example.dailyReport.Bean;
 
 import java.util.List;
 
+/**
+ *
+ * @Params: course data
+ * @Author: Siya(Xiran) Yan
+ * @Date: 10:31 18/12/20
+ */
 public class CourseApi {
     private int sum;
     private List<Teacher> list;

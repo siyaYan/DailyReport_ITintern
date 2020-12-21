@@ -1,5 +1,11 @@
 package com.example.dailyReport.Bean;
 
+/**
+ *
+ * @Params: subject data
+ * @Author: Siya(Xiran) Yan
+ * @Date: 10:31 18/12/20
+ */
 public class Subject {
     private String subject;
     private int teacher_sum;

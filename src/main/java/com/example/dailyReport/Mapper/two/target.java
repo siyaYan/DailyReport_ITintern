@@ -40,4 +40,6 @@ public interface target {
     List<String> selectSubjects(@Param("school_id") int school_id,@Param("date") int date);
 
     List<String> selectSubjectTeachers(@Param("school_id") int school_id,@Param("date") int date,@Param("subject_name") String subject_name);
+
+    Integer selectDayAccess(@Param("school_id") int school_id, @Param("date") int date,@Param("access_type") int access_type);
 }

@@ -147,5 +147,10 @@
         </if>
     </select>
 
-
+    <!--access-->
+    <select id="selectDayAccess" resultType="INTEGER">
+        select count(*)
+        from access where school_id=#{school_id} and access_type=#{access_type}
+                       and access_time &gt;= #{date} and access_time &lt; ${date}+86400
+    </select>
 </mapper>

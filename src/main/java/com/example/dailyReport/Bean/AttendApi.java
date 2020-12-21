@@ -2,7 +2,7 @@ package com.example.dailyReport.Bean;
 
 /**
  *
- * @Params: Todo refactor the return params
+ * @Params: attend api data
  * @Author: Siya(Xiran) Yan
  * @Date: 11:14 15/12/20
  */

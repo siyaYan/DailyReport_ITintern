@@ -1,5 +1,11 @@
 package com.example.dailyReport.Bean;
 
+/**
+ *
+ * @Params: teacher data
+ * @Author: Siya(Xiran) Yan
+ * @Date: 10:31 18/12/20
+ */
 public class Teacher {
     private int teacher_id;
     private String teacher_name;

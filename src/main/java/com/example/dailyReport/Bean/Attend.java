@@ -2,7 +2,7 @@ package com.example.dailyReport.Bean;
 
 /**
 *
-* @Params: annotate position parameters
+* @Params: attend table data(annotate position parameters)
 * @Author: Siya(Xiran) Yan
 * @Date: 11:14 15/12/20
 */
