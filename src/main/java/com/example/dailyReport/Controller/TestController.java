@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +73,7 @@ public class TestController {
 
     @RequestMapping("/async/{id}")
     public String setAsync(@PathVariable(value="id") int school_id) throws InterruptedException {
-        return pageService.setAsync(school_id,null);
+        return pageService.setAttendAsync(school_id,null);
     }
 
     @RequestMapping("/attendapi/{id}/{date}")
@@ -87,10 +85,14 @@ public class TestController {
     public List<Tconsume> getTconsume(@PathVariable(value="id") int school_id, @PathVariable(value="date")String date) throws InterruptedException, ParseException {
         return testService.getTconsume(school_id,dateTranferService.dateStringTranferTimestamp(date));
     }
-    ///test/tconsume/12/2020-12-21
+    ///test/consume/12/2020-12-21
     @RequestMapping("/consume/{id}/{date}")
     public List<Consume> transConsume(@PathVariable(value="id") int school_id, @PathVariable(value="date")String date) throws InterruptedException, ParseException {
         return asyncService.transferConsumes(testService.getTconsume(school_id,dateTranferService.dateStringTranferTimestamp(date)));
     }
-
+    ///test/insertconsume/12/2020-12-21
+    @RequestMapping("/insertconsume/{id}/{date}")
+    public Boolean insertConsumes(@PathVariable(value="id") int school_id, @PathVariable(value="date")String date) throws InterruptedException, ParseException {
+        return asyncService.consumesService(school_id, dateTranferService.dateStringTranferTimestamp(date));
+    }
 }

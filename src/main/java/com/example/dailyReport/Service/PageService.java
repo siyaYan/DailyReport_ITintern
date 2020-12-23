@@ -29,7 +29,7 @@ public class PageService {
     @Autowired
     AsyncService asyncService;
 
-    public String setAsync(int school_id, Timestamp date) throws InterruptedException {
+    public String setAttendAsync(int school_id, Timestamp date) throws InterruptedException {
         int num=sourceData.countAttendance(school_id,date);
         List<Attendance> attendances = new ArrayList<>();
         List<Attend> attends = new ArrayList<>();

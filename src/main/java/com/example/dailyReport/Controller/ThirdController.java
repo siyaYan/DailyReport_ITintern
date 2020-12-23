@@ -18,13 +18,18 @@ public class ThirdController {
     private ThirdPartyService thirdPartyService;
     @Autowired
     private DateTranferService dateTranferService;
-    //17/7/20
     @RequestMapping("/word/{id}/{days}/{size}")
-    public List<Word> attendApi(@PathVariable(value="id") int school_id, @PathVariable(value="days")int days, @PathVariable(value="size")int size) throws IOException {
+    public List<Word> wordApi(@PathVariable(value="id") int school_id, @PathVariable(value="days")int days, @PathVariable(value="size")int size) throws IOException {
         return thirdPartyService.getWordsData(school_id,days,size);
     }
+    //http://localhost:8080/third/access/2020-2-18/2020-3-18
     @RequestMapping("/access/{start}/{end}")
-    public String attendApi(@PathVariable(value="start") String start,@PathVariable(value="end") String end) throws ParseException {
+    public String accessApi(@PathVariable(value="start") String start,@PathVariable(value="end") String end) throws ParseException {
         return thirdPartyService.getAccessData(dateTranferService.dateStringTranferInt(start),dateTranferService.dateStringTranferInt(end));
     }
+    @RequestMapping("/access/insert/{start}/{end}")
+    public String insertAccess(@PathVariable(value="start") String start,@PathVariable(value="end") String end) throws ParseException {
+        return thirdPartyService.getAccessData(dateTranferService.dateStringTranferInt(start),dateTranferService.dateStringTranferInt(end));
+    }
+
 }

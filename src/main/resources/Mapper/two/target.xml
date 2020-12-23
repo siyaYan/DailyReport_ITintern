@@ -62,14 +62,14 @@
     <select id="selectClassIdByPerson" resultType="INTEGER" parameterType="INTEGER">
         select class_id from person_class_relation where person_id = #{person_id}
     </select>
-
+<!--refactor to add schoolId-->
     <select id="selectPersonByThirdNo" resultType="com.example.dailyReport.Bean.Person" parameterType="java.lang.String">
         select  person_id,
                 person_type,
                 third_no,
                 real_name,
                school_id
-        from person where third_no = #{third_no} and school_id = #{school_id}
+        from person where third_no = #{third_no}
     </select>
 
     <select id="personNum" resultType="INTEGER" >
@@ -152,10 +152,10 @@
         </if>
     </select>
 
-    <!--access-->
+    <!--accessApi-->
     <select id="selectDayAccess" resultType="INTEGER">
         select count(*)
-        from access where school_id=#{school_id} and access_type=#{access_type}
+        from accessApi where school_id=#{school_id} and access_type=#{access_type}
                        and access_time &gt;= #{date} and access_time &lt; ${date}+86400
     </select>
 
@@ -174,4 +174,31 @@
             )
         </foreach>
     </insert>
+
+    <insert id="insertConsumes" useGeneratedKeys="true" keyColumn="consume_id" parameterType="java.util.List">
+        insert into consume(
+        person_name,
+        person_id,
+        card_number,
+        account,
+        type,
+        position,
+        amount,
+        consume_time,
+        school_id)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.person_name},
+             #{item.person_id},
+             #{item.card_number},
+             #{item.account},
+             #{item.type},
+             #{item.position},
+             #{item.amount},
+             #{item.consume_time},
+            1
+            )
+        </foreach>
+    </insert>
+
 </mapper>

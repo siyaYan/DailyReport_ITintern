@@ -1,9 +1,6 @@
 package com.example.dailyReport.Mapper.two;
 
-import com.example.dailyReport.Bean.Attend;
-import com.example.dailyReport.Bean.AttendAbnormal;
-import com.example.dailyReport.Bean.Person;
-import com.example.dailyReport.Bean.Teacher;
+import com.example.dailyReport.Bean.*;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -47,5 +44,8 @@ public interface target {
 
     Integer selectDayAccess(@Param("school_id") int school_id, @Param("date") int date,@Param("access_type") int access_type);
 
-    Boolean insertWords(@Param("school_id") int school_id, @Param("keyword") String keyword,@Param("num") int num);
+    Boolean insertWords(@Param("list")  List<Word>list);
+
+    Boolean insertConsumes(@Param("list")  List<Consume>list);
+
 }

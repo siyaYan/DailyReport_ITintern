@@ -153,6 +153,10 @@ public class AsyncService {
         return transferAttends(sourceData.selectAttendance(school_id,date));
     }
 
+    //consumes
+    public List<Tconsume> getTconsume(int school_id, Timestamp consume_time){
+        return sourceData.selectConsume(school_id, consume_time);
+    }
     public List<Consume> transferConsumes(List<Tconsume> tconsumes) {
         List<Consume> consumes = new ArrayList<>();
         for (Tconsume tconsume:tconsumes) {
@@ -160,6 +164,7 @@ public class AsyncService {
         }
         return  consumes;
     }
+
     public Consume transferConsume(Tconsume tconsume) {
         Consume consume = new Consume();
         consume.setConsume_time(dateTranferService.dateTimestampTranferInt(tconsume.getConsume_time()));
@@ -168,9 +173,21 @@ public class AsyncService {
         consume.setAccount(tconsume.getBag_no());
         consume.setType(tconsume.getCategory()==1?0:1);
         consume.setPosition(tconsume.getSite());
-        consume.setPerson_id(targetData.selectPersonByThirdNo(tconsume.getStudent_no()).getPerson_id());
-        consume.setPerson_name(targetData.selectPersonByThirdNo(tconsume.getStudent_no()).getReal_name());
+        //System.out.println(tconsume.getStudent_no());
+        //todo table has errors
+        if (targetData.selectPersonByThirdNo(tconsume.getStudent_no()) != null) {
+            Person person = targetData.selectPersonByThirdNo(tconsume.getStudent_no());
+            consume.setPerson_id(person.getPerson_id());
+            consume.setPerson_name(person.getReal_name());
+        }
         return consume;
+    }
+
+    public Boolean insertConsumes(List<Consume> consumes) {
+        return targetData.insertConsumes(consumes);
+    }
+    public Boolean consumesService(int school_id,Timestamp date) {
+        return insertConsumes(transferConsumes(getTconsume(school_id,date)));
     }
     /*
     @Async

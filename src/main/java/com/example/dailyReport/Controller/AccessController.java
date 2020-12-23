@@ -1,6 +1,6 @@
 package com.example.dailyReport.Controller;
 
-import com.example.dailyReport.Bean.Access;
+import com.example.dailyReport.Bean.AccessApi;
 import com.example.dailyReport.Service.AccessService;
 import com.example.dailyReport.Service.DateTranferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class AccessController {
     @Autowired
     private DateTranferService dateTranferService;
     @RequestMapping("/api/{id}/{start}/{end}")
-    public List<Access> getAccess(@PathVariable(value = "id") int school_id,@PathVariable(value = "start")String start,@PathVariable(value = "end")String end) throws ParseException {
+    public List<AccessApi> getAccess(@PathVariable(value = "id") int school_id, @PathVariable(value = "start")String start, @PathVariable(value = "end")String end) throws ParseException {
         return accessService.getAccess(school_id, dateTranferService.dateStringTranferInt(start), dateTranferService.dateStringTranferInt(end));
     }
 }

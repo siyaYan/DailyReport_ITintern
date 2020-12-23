@@ -1,5 +1,11 @@
 package com.example.dailyReport.Bean;
 
+/**
+ *
+ * @Params: word
+ * @Author: Siya(Xiran) Yan
+ * @Date: 15:49 21/12/20
+ */
 public class Word {
     private int school_id;
     private String keyword;
