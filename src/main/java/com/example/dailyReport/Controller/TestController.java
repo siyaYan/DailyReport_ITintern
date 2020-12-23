@@ -1,16 +1,14 @@
 package com.example.dailyReport.Controller;
 
-import com.example.dailyReport.Bean.Attend;
-import com.example.dailyReport.Bean.Attendance;
-import com.example.dailyReport.Service.AsyncService;
-import com.example.dailyReport.Service.AttendService;
-import com.example.dailyReport.Service.DateTranferService;
-import com.example.dailyReport.Service.PageService;
+import com.example.dailyReport.Bean.*;
+import com.example.dailyReport.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +31,8 @@ public class TestController {
     private DateTranferService dateTranferService;
     @Autowired
     private PageService pageService;
+    @Autowired
+    private TestService testService;
 
     @RequestMapping("/selectClassIds")
     public List<Integer> selectClassIds() {
@@ -82,6 +82,15 @@ public class TestController {
     public List<Attend> attendApi(@PathVariable(value="id") int school_id,@PathVariable(value="date")int date) throws InterruptedException {
         return attendService.selectRecentTargetAttend(school_id,date);
     }
-
+    ///test/tconsume/12/2020-12-22
+    @RequestMapping("/tconsume/{id}/{date}")
+    public List<Tconsume> getTconsume(@PathVariable(value="id") int school_id, @PathVariable(value="date")String date) throws InterruptedException, ParseException {
+        return testService.getTconsume(school_id,dateTranferService.dateStringTranferTimestamp(date));
+    }
+    ///test/tconsume/12/2020-12-21
+    @RequestMapping("/consume/{id}/{date}")
+    public List<Consume> transConsume(@PathVariable(value="id") int school_id, @PathVariable(value="date")String date) throws InterruptedException, ParseException {
+        return asyncService.transferConsumes(testService.getTconsume(school_id,dateTranferService.dateStringTranferTimestamp(date)));
+    }
 
 }

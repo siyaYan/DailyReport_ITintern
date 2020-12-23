@@ -63,8 +63,13 @@
         select class_id from person_class_relation where person_id = #{person_id}
     </select>
 
-    <select id="selectPersonId" resultType="INTEGER" parameterType="java.lang.String">
-        select person_id from person where third_no = #{student_no}
+    <select id="selectPersonByThirdNo" resultType="com.example.dailyReport.Bean.Person" parameterType="java.lang.String">
+        select  person_id,
+                person_type,
+                third_no,
+                real_name,
+               school_id
+        from person where third_no = #{third_no} and school_id = #{school_id}
     </select>
 
     <select id="personNum" resultType="INTEGER" >
@@ -153,4 +158,20 @@
         from access where school_id=#{school_id} and access_type=#{access_type}
                        and access_time &gt;= #{date} and access_time &lt; ${date}+86400
     </select>
+
+    <!--thirdParty-->
+    <insert id="insertWords" useGeneratedKeys="true" keyColumn="word_id" parameterType="java.util.List">
+        insert into words(
+            school_id,
+            keyword,
+            num)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+             #{item.school_id},
+             #{item.keyword},
+             #{item.num}
+            )
+        </foreach>
+    </insert>
 </mapper>

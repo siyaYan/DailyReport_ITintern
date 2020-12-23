@@ -55,7 +55,7 @@ public class PageService {
         List<Attend> attends = new ArrayList<>();
         List<Attendance> attendances = new ArrayList<>();
         attendances.addAll(sourceData.pageSelectAttendance(school_id,null,0,1000));
-        attends.addAll(asyncService.transfers(attendances));
+        attends.addAll(asyncService.transferAttends(attendances));
         return attends;
     }
 

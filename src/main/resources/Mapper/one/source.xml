@@ -7,7 +7,7 @@
         <!--<id column="attend_id" javaType="INTEGER"/>-->
         <result column="school_id" property="school_id" jdbcType="INTEGER"/>
         <result column="student_class" property="class_name" jdbcType="VARCHAR"/>
-        <result column="student_no" property="student_no" jdbcType="VARCHAR"/>
+        <result column="person_name" property="person_name" jdbcType="VARCHAR"/>
         <result column="student_name" property="student_name" jdbcType="VARCHAR"/>
        <!-- <result column="position" property="position" jdbcType="VARCHAR"/>-->
         <result column="status" property="attend_status" jdbcType="INTEGER"/>
@@ -18,7 +18,7 @@
         select
         school_id,
         student_class,
-        student_no,
+        person_name,
         student_name,
         status,
         time
@@ -32,7 +32,7 @@
         select
             school_id,
             student_class,
-            student_no,
+            person_name,
             student_name,
             status,
             time
@@ -49,6 +49,13 @@
         from t_student_attendance where school_id=#{school_id} and status!=1
         <if test="date!= null ">
             and  time &gt;= #{date}
+        </if>
+    </select>
+    <select id="selectConsume" resultType="com.example.dailyReport.Bean.Tconsume">
+        select student_no,bag_no,site,category,consume_money,consume_time
+        from t_consume where school_id=#{school_id}
+        <if test="consume_time!= null ">
+            and consume_time &gt;=#{consume_time}
         </if>
     </select>
 </mapper>

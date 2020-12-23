@@ -13,7 +13,7 @@ public class DateTranferService {
     /* String.valueOf(date.getTime()/1000);
      * Integer.valueOf(timestamp);
      * */
-    //String(yyyy-mm-dd) transfer to 10 int timestamp
+    //String(yyyy-mm-dd) transferAttend to 10 int timestamp
     public String dateIntTranferString(int date) {
         long temp = (long) date * 1000;
         Timestamp ts = new Timestamp(temp);
@@ -21,14 +21,19 @@ public class DateTranferService {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(ts);
     }
-    //10 int timestamp transfer to String(yyyy-mm-dd)
+    //10 int timestamp transferAttend to String(yyyy-mm-dd)
     public int dateStringTranferInt(String date) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return Integer.valueOf(String.valueOf(simpleDateFormat.parse(date).getTime()/1000));
     }
-    //13 timestamp transfer to String(yyyy-mm-dd)
+    //String(yyyy-mm-dd) to 13 timestamp
     public Timestamp dateStringTranferTimestamp(String date) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return new Timestamp(simpleDateFormat.parse(date).getTime());
+    }
+    //13 timestamp transferAttend to int 10
+    public Integer dateTimestampTranferInt(Timestamp date)  {
+        int time= (int) (date.getTime()/1000);
+        return time;
     }
 }
