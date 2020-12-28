@@ -3,6 +3,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSON;
+import com.example.dailyReport.Bean.Access;
 import com.example.dailyReport.Bean.Word;
 import com.example.dailyReport.Mapper.two.target;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,9 @@ public class ThirdPartyService {
 		jsonObject.put("channel", "channel");
 		jsonObject.put("requestCommand", "control");
     String result = contect_flask.post(jsonObject1, "http://172.30.12.188:5003/test/hello");*/
-    public String getAccessData(int start,int end) {
+    //school id default=1
+    public List<Access> getAccessData(int start,int end) {
+        List<Access> accesses = new ArrayList<>();
         String result=null;
         try {
             URL url = new URL(AccessApiPath);
@@ -129,7 +132,32 @@ public class ThirdPartyService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return result;
+        JSONObject jsonObject = JSON.parseObject(result);
+        JSONObject resultJsonObject = jsonObject.getJSONObject("results");
+        JSONArray jsonArray = resultJsonObject.getJSONArray("list");
+        //遍历json集合，取出数据
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONObject jsonObject2 = (JSONObject) jsonArray.get(i);
+            Access access = new Access();
+            access.setAccess_time((Integer) jsonObject2.get("entry_time"));
+            access.setAccess_type((Integer) jsonObject2.get("entry_type"));
+            access.setPerson_id(targetData.selectPersonByThirdNo(jsonObject2.get("person_number").toString()).getPerson_id());
+            access.setPerson_name(jsonObject2.get("person_name").toString());
+            access.setCard_number(jsonObject2.get("mac_sn").toString());
+            access.setPosition( jsonObject2.get("entry_address").toString());
+            access.setSchool_id(1);
+            accesses.add(access);
+
+        }
+        return accesses;
+    }
+
+    public Boolean insertAccesses(List<Access> accesses) {
+        return targetData.insertAccesses(accesses);
+    }
+
+    public Boolean accessesService(int start,int end) {
+        return insertAccesses(getAccessData(start, end));
     }
 }
 

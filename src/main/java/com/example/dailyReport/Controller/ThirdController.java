@@ -1,5 +1,6 @@
 package com.example.dailyReport.Controller;
 
+import com.example.dailyReport.Bean.Access;
 import com.example.dailyReport.Bean.Word;
 import com.example.dailyReport.Service.DateTranferService;
 import com.example.dailyReport.Service.ThirdPartyService;
@@ -24,12 +25,12 @@ public class ThirdController {
     }
     //http://localhost:8080/third/access/2020-2-18/2020-3-18
     @RequestMapping("/access/{start}/{end}")
-    public String accessApi(@PathVariable(value="start") String start,@PathVariable(value="end") String end) throws ParseException {
+    public List<Access> accessApi(@PathVariable(value="start") String start, @PathVariable(value="end") String end) throws ParseException {
         return thirdPartyService.getAccessData(dateTranferService.dateStringTranferInt(start),dateTranferService.dateStringTranferInt(end));
     }
     @RequestMapping("/access/insert/{start}/{end}")
-    public String insertAccess(@PathVariable(value="start") String start,@PathVariable(value="end") String end) throws ParseException {
-        return thirdPartyService.getAccessData(dateTranferService.dateStringTranferInt(start),dateTranferService.dateStringTranferInt(end));
+    public boolean insertAccess(@PathVariable(value="start") String start,@PathVariable(value="end") String end) throws ParseException {
+        return thirdPartyService.accessesService(dateTranferService.dateStringTranferInt(start), dateTranferService.dateStringTranferInt(end));
     }
 
 }

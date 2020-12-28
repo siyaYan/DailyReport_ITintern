@@ -51,6 +51,7 @@
             and  time &gt;= #{date}
         </if>
     </select>
+
     <select id="selectConsume" resultType="com.example.dailyReport.Bean.Tconsume">
         select student_no,bag_no,site,category,consume_money,consume_time
         from t_consume where school_id=#{school_id}

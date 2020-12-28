@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 
 @Service
 public class DateTranferService {
-    // todo 获取到秒精度的时间戳，且在转换过程中不发生错误，不能直接转化成int类型相除，会发生数据溢出
+    // 获取到秒精度的时间戳，且在转换过程中不发生错误，不能直接转化成int类型相除，会发生数据溢出
     /* String.valueOf(date.getTime()/1000);
      * Integer.valueOf(timestamp);
      * */

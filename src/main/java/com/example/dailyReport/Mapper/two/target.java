@@ -48,4 +48,6 @@ public interface target {
 
     Boolean insertConsumes(@Param("list")  List<Consume>list);
 
+    Boolean insertAccesses(@Param("list")  List<Access>list);
+
 }

@@ -201,4 +201,26 @@
         </foreach>
     </insert>
 
+    <insert id="insertAccesses" useGeneratedKeys="true" keyColumn="access_id" parameterType="java.util.List">
+        insert into access(
+        person_name,
+        person_id,
+        card_number,
+        position,
+        access_type,
+        access_time,
+        school_id)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.person_name},
+            #{item.person_id},
+            #{item.card_number},
+            #{item.position},
+            #{item.access_type},
+            #{item.access_time},
+            #{item.school_id}
+            )
+        </foreach>
+    </insert>
+
 </mapper>

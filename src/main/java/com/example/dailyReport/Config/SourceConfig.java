@@ -31,7 +31,6 @@ public class SourceConfig {
 
     @Bean(name = "oneSqlSessionFactory")
     @Primary
-    //todo getRecources
     public SqlSessionFactory oneSqlSessionFactory(@Qualifier("DataOneSource") DataSource datasource)
             throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();

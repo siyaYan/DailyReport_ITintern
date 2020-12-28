@@ -3,7 +3,7 @@ package com.example.dailyReport.Bean;
 * 
 * @Params: access
 * @Author: Siya(Xiran) Yan 
-* @Date: 17:13 23/12/20
+* @Date: 17:17 23/12/20
 */
 public class Access {
     private int access_id;
